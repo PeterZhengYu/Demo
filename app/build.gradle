@@ -16,13 +16,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //强制让所有模块都用相同的支持库版本
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '27.1.1'
+                }
+            }
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.google.dagger:dagger-android:2.10-rc4' // Dagger2 Android包
+    // 如果使用支持包， 上面的Android包可以省略，支持包里面已经包含了
+    implementation 'com.google.dagger:dagger-android-support:2.10-rc4' // Dagger2 Android 支持包，用于支持v4、v7下的控件
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.10-rc4' // 注解处理器
 }
