@@ -41,4 +41,6 @@ dependencies {
     // 如果使用支持包， 上面的Android包可以省略，支持包里面已经包含了
     implementation 'com.google.dagger:dagger-android-support:2.10-rc4' // Dagger2 Android 支持包，用于支持v4、v7下的控件
     annotationProcessor 'com.google.dagger:dagger-compiler:2.10-rc4' // 注解处理器
+
+    implementation 'com.github.jdsjlzx:LRecyclerView:1.5.0'
 }
